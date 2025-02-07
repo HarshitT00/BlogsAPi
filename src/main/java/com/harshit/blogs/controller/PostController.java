@@ -49,8 +49,8 @@ public class PostController {
     }
 
     @GetMapping("/userName/{userName}")
-    public ResponseEntity<Page<PostResponse>> getPostByUserName(@PathVariable String userName , @ModelAttribute GetPostQuery query){
-        Page<PostResponse> posts = postService.getPostByUserName(query, userName);
+    public ResponseEntity<CustomPageResponse<PostResponse>> getPostByUserName(@PathVariable String userName , @ModelAttribute GetPostQuery query){
+        CustomPageResponse<PostResponse> posts = postService.getPostByUserName(query, userName);
         return ResponseEntity.ok(posts);
     }
 
