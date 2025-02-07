@@ -68,11 +68,20 @@ public class PostService {
         return postResponseMapper(post.get());
     }
 
-    public Page<PostResponse> getPostByUserName(@NotNull GetPostQuery query, @NotNull String userName){
+    public CustomPageResponse<PostResponse> getPostByUserName(@NotNull GetPostQuery query, @NotNull String userName){
         Sort sort = Sort.by(query.getSortDirection(), query.getSortBy().getFieldName());
         Pageable pageable = PageRequest.of(query.getPageNumber(),query.getPageSize(),sort);
         Page<Post> posts = postRepository.findByUserName(userName,pageable);
-        return posts.map(PostService::postResponseMapper);
+        List<PostResponse> postResponses = posts.getContent().stream()
+                .map(PostService::postResponseMapper)
+                .collect(Collectors.toList());
+        return new CustomPageResponse<>(
+                postResponses,
+                posts.getSize(),
+                posts.getNumber(),
+                posts.getTotalElements(),
+                !posts.isLast()
+        );
     }
 
     public CustomPageResponse<PostResponse> getAllPost(@NotNull GetPostQuery query) {
