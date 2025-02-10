@@ -6,7 +6,6 @@ import com.harshit.blogs.service.PostService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ public class PostController {
     @Autowired
     private final PostService postService;
 
-    @PostMapping("")
+    @PostMapping("/addPost")
     public ResponseEntity<PostResponse> addPost(@Valid @RequestBody AddPostRequest addPostRequest){
         PostResponse newPost = postService.addPost(addPostRequest);
         return ResponseEntity.ok(newPost);
