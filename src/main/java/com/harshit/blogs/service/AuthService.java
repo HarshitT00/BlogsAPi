@@ -50,7 +50,7 @@ public class AuthService implements UserDetailsService {
         return "User registered successfully!";
     }
 
-    public LoginResponse login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) throws ApiException {
         Users user = userRepository.findByUserName(request.getUserName())
                 .orElseThrow(() -> new ApiException(
                         ErrorCode.AUTHENTICATION_FAILED,
