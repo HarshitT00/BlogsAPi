@@ -1,6 +1,7 @@
 package com.harshit.blogs.controller;
 
 import com.harshit.blogs.dto.LoginRequest;
+import com.harshit.blogs.dto.LoginResponse;
 import com.harshit.blogs.dto.RegisterRequest;
 import com.harshit.blogs.service.AuthService;
 import jakarta.validation.Valid;
@@ -24,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest request) throws RuntimeException {
-        String response = authService.login(request);
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) throws RuntimeException {
+        LoginResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
 

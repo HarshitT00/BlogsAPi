@@ -2,6 +2,7 @@ package com.harshit.blogs.service;
 
 
 import com.harshit.blogs.dto.LoginRequest;
+import com.harshit.blogs.dto.LoginResponse;
 import com.harshit.blogs.dto.RegisterRequest;
 import com.harshit.blogs.exceptionHandling.ApiException;
 import com.harshit.blogs.exceptionHandling.ErrorCode;
@@ -49,7 +50,7 @@ public class AuthService implements UserDetailsService {
         return "User registered successfully!";
     }
 
-    public String login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         Users user = userRepository.findByUserName(request.getUserName())
                 .orElseThrow(() -> new ApiException(
                         ErrorCode.AUTHENTICATION_FAILED,
@@ -62,7 +63,8 @@ public class AuthService implements UserDetailsService {
                     "Invalid username or password"
             );
         }
-
-        return jwtService.generateToken(user.getUserName());
+        LoginResponse res =  new LoginResponse();
+        res.setToken(jwtService.generateToken(user.getUserName()));
+        return res;
     }
 }
