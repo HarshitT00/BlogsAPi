@@ -25,6 +25,4 @@ application:
   security:
     jwt:
       secret: ${JWT_SECRET:TmV3U2VjcmV0S2V5Rm9ySldUU2lnbmluZ1B1cnBvc2VzMTIzNDU2Nzg=}
-      expiration: 86400000     # 24 hours
-      refresh-token:
-        expiration: 604800000  # 7 days
+      expiration: 6000     # 24 hours
